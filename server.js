@@ -33,6 +33,11 @@ ws.on('connection', socket => {
         if (messageObject.text === '/hello') {
             messageObject.text = "Bonjour à tous";
         }
+        if (messageObject.text === '/users') {
+            let users = clients.map(client => client.pseudo);
+            socket.send(JSON.stringify({users}));
+            return;
+        }
 
         if (messageObject.text) {
             clients.forEach(client => {
