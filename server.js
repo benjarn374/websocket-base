@@ -4,8 +4,7 @@ const ws = new Websocket.Server({ port: 8080 }); // Attention Xampp doit être f
 ws.on('connection', socket => {
     console.log('[WS] Un nouveau client est connecté.');
     socket.on('message', message => {
-        console.log('[WS] Nouveau message.');
-        console.log(`message: ${message}`);
+        console.log(`[WS] message: ${message}`);
     })
 });
 console.log('[WS] Server started...');
