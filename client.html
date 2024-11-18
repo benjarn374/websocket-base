@@ -14,26 +14,31 @@
         <button id="sendButton" onclick="SendMessage()">Envoyer</button>
     </div>
     <script>
-        const ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
-        ws.onmessage = message => {
-            console.log(`[WS] message: ${message.data}`);
-            // on recoit toujours du JSON
-            messageObject = JSON.parse(message.data);
-            if (messageObject.yourId) {
+        let ws = null;
+        function connectToServer(pseudo) {
+            console.log('connectToServer: ' + pseudo);
+            ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
+            ws.onmessage = message => {
+                console.log(`[WS] message: ${message.data}`);
+                // on recoit toujours du JSON
+                messageObject = JSON.parse(message.data);
                 // afficher l'id du client
-                let clientId = document.getElementById('clientId');
-                clientId.innerText = messageObject.yourId;
-            }
-            if (messageObject.text) {
-                // créer une nouvelle div avec le message reçu
-                let newDiv = document.createElement('div');
-                newDiv.innerText = messageObject.clientId + ' : ' + messageObject.text;
-                // ajoute la nouvelle div au conteneur 'messages'
-                let messagesDiv = document.getElementById('messages');
-                messagesDiv.appendChild(newDiv);
-            }
-        };
-
+                if (messageObject.yourId) {
+                    let clientId = document.getElementById('clientId');
+                    clientId.innerText = messageObject.yourId;
+                    ws.send(JSON.stringify({clientId: messageObject.yourId, pseudo}));
+                }
+                // affiche le text du message reçu
+                if (messageObject.text) {
+                    // créer une nouvelle div avec le message reçu
+                    let newDiv = document.createElement('div');
+                    newDiv.innerText = messageObject.clientId + ' : ' + messageObject.text;
+                    // ajoute la nouvelle div au conteneur 'messages'
+                    let messagesDiv = document.getElementById('messages');
+                    messagesDiv.appendChild(newDiv);
+                }
+            };
+        }
         function SendMessage() {
             console.log('SendMessage');
             let messageInput = document.getElementById('messageInput');
