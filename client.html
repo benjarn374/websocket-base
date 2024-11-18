@@ -8,6 +8,7 @@
 
 <body>
     <div style="display:flex;flex-direction: column;gap:15px;">
+        <div id="clientId"></div>
         <div id="messages" style="border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll;"></div>
         <input type="text" id="messageInput" placeholder="Taper votre message">
         <button id="sendButton" onclick="SendMessage()">Envoyer</button>
@@ -18,10 +19,15 @@
             console.log(`[WS] message: ${message.data}`);
             // on recoit toujours du JSON
             messageObject = JSON.parse(message.data);
+            if (messageObject.clientId) {
+                // afficher l'id du client
+                let clientId = document.getElementById('clientId');
+                clientId.innerText = messageObject.clientId;
+            }
             if (messageObject.text) {
                 // créer une nouvelle div avec le message reçu
                 let newDiv = document.createElement('div');
-                newDiv.innerText = messageObject.text;
+                newDiv.innerText = messageObject.clientId + ' : ' + messageObject.text;
                 // ajoute la nouvelle div au conteneur 'messages'
                 let messagesDiv = document.getElementById('messages');
                 messagesDiv.appendChild(newDiv);
@@ -33,7 +39,8 @@
             let messageInput = document.getElementById('messageInput');
             console.log(messageInput.value);
             let send = {
-                text: messageInput.value
+                text: messageInput.value,
+                clientId: document.getElementById('clientId').innerText
             }
             ws.send(JSON.stringify(send));
             messageInput.value = '';
