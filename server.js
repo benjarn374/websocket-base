@@ -10,18 +10,18 @@ ws.on('connection', socket => {
     // accueil du client et envoi de son id et du message de bienvenue
     const clientId = Date.now() + Math.random().toString(36).substr(2, 9);
     clients.push({ id: clientId, socket });
-    socket.send(JSON.stringify({clientId, text: "Bienvenue"}));
+    socket.send(JSON.stringify({ clientId: 'bot', yourId: clientId, text: "Bienvenue" }));
 
     // mécanique de traitement des messages du server
     socket.on('message', message => {
         console.log(`[WS] message: ${message}`);
         let messageObject = JSON.parse(message.toString());
-        
-        if(messageObject.text === '/time') {
+
+        if (messageObject.text === '/time') {
             messageObject.text = new Date().toString();
         }
 
-        if(messageObject.text === '/hello') {
+        if (messageObject.text === '/hello') {
             messageObject.text = "Bonjour à tous";
         }
 
