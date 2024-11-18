@@ -5,6 +5,9 @@ ws.on('connection', socket => {
     console.log('[WS] Un nouveau client est connecté.');
     socket.on('message', message => {
         console.log(`[WS] message: ${message}`);
+        ws.clients.forEach(client => {
+            client.send(message);
+        });
     })
 });
 console.log('[WS] Server started...');
