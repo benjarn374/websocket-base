@@ -21,7 +21,7 @@ ws.on('connection', socket => {
             clients.forEach(client => {
                 if (client.clientId === messageObject.clientId) {
                     client.pseudo = messageObject.pseudo;
-                    client.socket.send(JSON.stringify({ text: 'Pseudo enregistré' }));
+                    client.socket.send(JSON.stringify({ clientId:'bot', text: 'Pseudo enregistré', pseudo: client.pseudo }));
                 }
             })
         }
