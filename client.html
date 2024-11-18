@@ -14,9 +14,9 @@
     </div>
     <script>
         const ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
-
         ws.onmessage = message => {
             console.log(`[WS] message: ${message.data}`);
+            // TODO : remplir le div #messages avec le message.data
         };
 
         function SendMessage() {
