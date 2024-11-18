@@ -11,9 +11,8 @@ le Websocket sera lancé sur le port 8080 donc vérifier bien que votre xampp es
 
 ## Lancer le serveur avec node
 Si le parefeu se lance autoriser le programme.
-node server.js
+
+``node server.js``
 
 ## Lancer le client :
 Ouvrir le fichier client.html dans votre navigateur
-
-## pare-feu
