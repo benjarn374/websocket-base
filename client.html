@@ -18,7 +18,9 @@
         function SendMessage() {
             console.log('SendMessage');
             let messageInput= document.getElementById('messageInput');
-            console.log(messageInput);
+            console.log(messageInput.value);
+            ws.send(messageInput.value);
+            messageInput.value = '';
         }
     </script>
 </body>
