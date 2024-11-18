@@ -16,17 +16,21 @@
         const ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
         ws.onmessage = message => {
             console.log(`[WS] message: ${message.data}`);
-            // créer une nouvelle div avec le message reçu
-            let newDiv = document.createElement('div');
-            newDiv.innerText = message.data;
-            // ajoute la nouvelle div au conteneur 'messages'
-            let messagesDiv = document.getElementById('messages');
-            messagesDiv.appendChild(newDiv);
+            // on recoit toujours du JSON
+            messageObject = JSON.parse(message.data);
+            if (messageObject.text) {
+                // créer une nouvelle div avec le message reçu
+                let newDiv = document.createElement('div');
+                newDiv.innerText = messageObject.text;
+                // ajoute la nouvelle div au conteneur 'messages'
+                let messagesDiv = document.getElementById('messages');
+                messagesDiv.appendChild(newDiv);
+            }
         };
 
         function SendMessage() {
             console.log('SendMessage');
-            let messageInput= document.getElementById('messageInput');
+            let messageInput = document.getElementById('messageInput');
             console.log(messageInput.value);
             let send = {
                 text: messageInput.value
