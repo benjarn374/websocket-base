@@ -15,10 +15,10 @@
     <script>
         const ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
 
-        ws.on('message', message => {
-            console.log(`[WS] message: ${message}`);
-        });
-        
+        ws.onmessage = message => {
+            console.log(`[WS] message: ${message.data}`);
+        };
+
         function SendMessage() {
             console.log('SendMessage');
             let messageInput= document.getElementById('messageInput');
