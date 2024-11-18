@@ -10,10 +10,16 @@
     <div style="display:flex;flex-direction: column;gap:15px;">
         <div id="messages" style="border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll;"></div>
         <input type="text" id="messageInput" placeholder="Taper votre message">
-        <button id="sendButton">Envoyer</button>
+        <button id="sendButton" onclick="SendMessage()">Envoyer</button>
     </div>
     <script>
         const ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
+
+        function SendMessage() {
+            console.log('SendMessage');
+            let messageInput= document.getElementById('messageInput');
+            console.log(messageInput);
+        }
     </script>
 </body>
 
