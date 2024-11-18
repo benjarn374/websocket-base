@@ -20,3 +20,4 @@ Ouvrir le fichier client.html dans votre navigateur
 ## TODO
 commande à programmer
 si un client envoi /time  le server renvoie la date et l'heure actuelle
+si un client envoi /hello  le server renvoie "Bonjour à tous"
