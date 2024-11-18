@@ -5,8 +5,14 @@ ws.on('connection', socket => {
     console.log('[WS] Un nouveau client est connecté.');
     socket.on('message', message => {
         console.log(`[WS] message: ${message}`);
+        let messageObject = JSON.parse(message.toString());
+        
+        if(messageObject.text === '/time') {
+            messageObject.text = new Date().toString();
+        }
+
         ws.clients.forEach(client => {
-            client.send(message.toString());
+            client.send(JSON.stringify(messageObject));
         });
     })
 });
