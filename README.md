@@ -16,3 +16,7 @@ Si le parefeu se lance autoriser le programme.
 
 ## Lancer le client :
 Ouvrir le fichier client.html dans votre navigateur
+
+## TODO
+commande à programmer
+si un client envoi /time  le server renvoie la date et l'heure actuelle
