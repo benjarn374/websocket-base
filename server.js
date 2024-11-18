@@ -6,7 +6,7 @@ ws.on('connection', socket => {
     socket.on('message', message => {
         console.log(`[WS] message: ${message}`);
         ws.clients.forEach(client => {
-            client.send(message);
+            client.send(message.toString());
         });
     })
 });
