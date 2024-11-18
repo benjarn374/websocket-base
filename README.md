@@ -9,3 +9,8 @@ et le fichier package.json avec la dépendance ws.
 ## Close Xampp
 le Websocket sera lancé sur le port 8080 donc vérifier bien que votre xampp est bien fermé.
 
+## Lancer le serveur avec node :
+node server.js
+
+## Lancer le client :
+Ouvrir le fichier client.html dans votre navigateur
