@@ -9,6 +9,7 @@
 <body>
     <div style="display:flex;flex-direction: column;gap:15px;">
         <div id="clientId"></div>
+        <div id="pseudo"></div>
         <div id="messages" style="border: 1px solid #ddd; padding: 10px; height: 300px; overflow-y: scroll;"></div>
         <input type="text" id="messageInput" placeholder="Taper votre message">
         <button id="sendButton" onclick="SendMessage()">Envoyer</button>
@@ -17,6 +18,7 @@
         let ws = null;
         function connectToServer(pseudo) {
             console.log('connectToServer: ' + pseudo);
+            document.getElementById('pseudo').innerText = pseudo;
             ws = new WebSocket('ws://localhost:8080'); // Ouvrir le Websocket
             ws.onmessage = message => {
                 console.log(`[WS] message: ${message.data}`);
@@ -26,13 +28,13 @@
                 if (messageObject.yourId) {
                     let clientId = document.getElementById('clientId');
                     clientId.innerText = messageObject.yourId;
-                    ws.send(JSON.stringify({clientId: messageObject.yourId, pseudo}));
+                    ws.send(JSON.stringify({clientId: messageObject.yourId, newPseudo: pseudo}));
                 }
                 // affiche le text du message reçu
                 if (messageObject.text) {
                     // créer une nouvelle div avec le message reçu
                     let newDiv = document.createElement('div');
-                    newDiv.innerText = messageObject.clientId + ' : ' + messageObject.text;
+                    newDiv.innerText = messageObject.pseudo + ' : ' + messageObject.text;
                     // ajoute la nouvelle div au conteneur 'messages'
                     let messagesDiv = document.getElementById('messages');
                     messagesDiv.appendChild(newDiv);
@@ -45,7 +47,8 @@
             console.log(messageInput.value);
             let send = {
                 text: messageInput.value,
-                clientId: document.getElementById('clientId').innerText
+                clientId: document.getElementById('clientId').innerText,
+                pseudo: document.getElementById('pseudo').innerText
             }
             ws.send(JSON.stringify(send));
             messageInput.value = '';
